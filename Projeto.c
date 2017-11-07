@@ -7,28 +7,28 @@
 	#include <math.h>
 	#include "tela.h"
 	
-	//VARI¡VEIS GLOBAIS 
-	int			n_DuracaoGlobal = 0;
-	time_t t_InicioSimulacao, t_TempoAtual;
+	//VARI√ÅVEIS GLOBAIS 
+	int		n_DuracaoGlobal = 0;
+	time_t  	t_InicioSimulacao, t_TempoAtual;
 	clock_t		milisseg_atual;
-    struct tm 	*timeinfo;
+    	struct tm 	*timeinfo;
 	
 	
 	//ESTRUTURAS
 	typedef struct sFila{
-    	int 			n_Registro;
-    	time_t 			t_Entrada, t_Saida;
+    	int 		n_Registro;
+    	time_t 		t_Entrada, t_Saida;
     	struct sFila	*prox;
 	} s_Fila;
 
 	typedef struct sServidores{
-		int				n_Registro;
-		s_Fila 			*sf_Inicio;
-    	s_Fila			*sf_Fim;
-    	int				n_DuracaoSimulacao, n_QntUsuarios, n_UsuPorSeg, n_UsuTratPorSeg;
+		int	n_Registro;
+		s_Fila 	*sf_Inicio;
+    		s_Fila	*sf_Fim;
+    		int	n_DuracaoSimulacao, n_QntUsuarios, n_UsuPorSeg, n_UsuTratPorSeg;
 	} s_Servidores;
 
-	//PROT”TIPOS
+	//PROT√ìTIPOS
 	void f_Validar(int n_Valor);
 	void f_SetServidor(s_Servidores Servidor[], int n_QntServidores);
 	void f_GraficoHorario();
@@ -47,7 +47,7 @@
 	*/
 
 	//MAIN
-    void main(void){
+   	void main(void){
        	int					n_QntServidores;
     	unsigned short		f_Retorno;
     	time_t				t_TempoInser = 0, t_TempoRet = 0;
@@ -67,7 +67,7 @@
 		
 		system("cls");
 		
-		//TEMPO QUE INICIA A SIMULA«√O
+		//TEMPO QUE INICIA A SIMULA√á√ÉO
 		time(&t_InicioSimulacao);
 		
 		
@@ -91,20 +91,20 @@
 
 
 
-	//FUN«’ES
+	//FUN√á√ïES
 	
 	
-	//VALIDA«√O DOS DADOS
+	//VALIDA√á√ÉO DOS DADOS
 	
 	void f_Validar(int n_Valor){
 		while(n_Valor <= 0){
 		   printf("[ :(] Infelizmente este numero esta no escopo negativo!\n");
 		   printf("[(:)] Digite novamente: ");
-	       scanf("%d", &n_Valor);
+	      	   scanf("%d", &n_Valor);
 		}
 	}
 
-	//INFORMA«’ES DO SERVIDOR
+	//INFORMA√á√ïES DO SERVIDOR
 
 	void f_SetServidor(s_Servidores Servidor[], int n_QntServidores){
     	int i;
@@ -115,8 +115,8 @@
     		printf("[(%d)] Inserindo dados do Servidor [%d] \n", i, i);
 			
     		Servidor[i].n_Registro 	= i;
-    	    Servidor[i].sf_Inicio	=	NULL;
-    	    Servidor[i].sf_Fim		=	NULL;
+    	        Servidor[i].sf_Inicio	= NULL;
+    	        Servidor[i].sf_Fim	= NULL;
 			
 			printf("[(%d)] Digite quantos segundos tu desejas simular seu processo: ", i);
 			scanf("%d", &Servidor[i].n_DuracaoSimulacao);
@@ -144,7 +144,7 @@
 	void f_GraficoHorario(){
 			timeinfo = localtime(&t_TempoAtual);
 
-			//MOLDANDO HORÔøΩRIO
+			//MOLDANDO HOR√Ø¬ø¬ΩRIO
 			gotoxy(0,50);
 			printf ("%2d:%2d:%2d", timeinfo -> tm_hour, timeinfo -> tm_min, timeinfo -> tm_sec);
 
@@ -161,7 +161,7 @@
 	
 	
 	
-	//SIMULA«√O
+	//SIMULA√á√ÉO
 	
 	void f_Simulacao(s_Servidores Servidor[], time_t *t_TempoInser, time_t *t_TempoRet){
 			
@@ -169,17 +169,17 @@
 			//for
 					
 			if((int) difftime(t_TempoAtual, *t_TempoInser) >= Servidor[i].n_UsuPorSeg){
-                f_Inserir(Servidor, i);
-                time(&*t_TempoInser);
-                //f_Imprimir(Servidor, i);	
+                	f_Inserir(Servidor, i);
+                	time(&*t_TempoInser);
+                	//f_Imprimir(Servidor, i);	
             }
 
 			time(&t_TempoAtual);
 			
-        	if(((int) difftime(t_TempoAtual, t_InicioSimulacao)) % Servidor[i].n_UsuTratPorSeg == 0 && t_TempoAtual != *t_TempoRet){
-            	f_Remover(Servidor, i);
-            	time(&*t_TempoRet);
-            	//f_Imprimir(Servidor, i);	
+			if(((int) difftime(t_TempoAtual, t_InicioSimulacao)) % Servidor[i].n_UsuTratPorSeg == 0 && t_TempoAtual != *t_TempoRet){
+			f_Remover(Servidor, i);
+			time(&*t_TempoRet);
+			//f_Imprimir(Servidor, i);	
 			}
 			
 	}
@@ -192,19 +192,19 @@
 	
 	
 	
-	//FUN«’ES DE MANIPULA«√O DA FILA
+	//FUN√á√ïES DE MANIPULA√á√ÉO DA FILA
 	
 	void f_Inserir(s_Servidores Servidor[], int i){
 
 		static int 	n_RegistroGeralInser = 0;
-	    time_t		t_EntradaFila;
+	 	time_t		t_EntradaFila;
 	    
 		s_Fila *sNovo = (s_Fila *) malloc(sizeof(s_Fila));
 		if(sNovo == NULL)  //stackoverflow
 
 		sNovo -> n_Registro = n_RegistroGeralInser;
 		sNovo -> t_Entrada = time(&t_EntradaFila);
-        sNovo -> prox = NULL;
+        	sNovo -> prox = NULL;
         
         if((Servidor[i].sf_Inicio) != NULL){
             Servidor[i].sf_Fim -> prox = sNovo;
